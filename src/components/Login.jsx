@@ -20,7 +20,7 @@ function Login() {
     <div>
     <h1>Viral Muzic</h1>
     <img src={logo}/>
-    <button onClick={handleclick}>Login With Spotify</button>
+    <button onClick={handleclick}>Login With Us</button>
     </div>
    
    </Container>

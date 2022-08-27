@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useEffect,useState}from 'react'
 import styled from "styled-components"
 import Footer from './Footer'
 import Navbar from './Navbar'
@@ -6,8 +6,38 @@ import Sidebar from './Sidebar'
 import Home from './Home'
 import {Switch,Route,BrowserRouter} from "react-router-dom"
 import Body from './Body'
+import {useStateProvider} from '../utilis/StateProvider'
+import { reducercases } from '../utilis/constants'
+import axios from 'axios'
 
 function Spotify() {
+    const [{token},dispatch] = useStateProvider()
+    const [userprofile,setuserprofile] = useState({})
+    useEffect(()=>{
+        const userProfile = async ()=>{
+          const {data} = axios.get("https://api.spotify.com/v1/me",{
+            headers:{
+              Authorization:"Bearer " + token,
+              "Content-type":"application/json"
+          }
+         
+          },
+          console.log({data}));
+         
+         
+          
+         
+    
+          const user = {
+            name:"bbb",
+            id:"1"
+          }
+         
+          dispatch({type:reducercases.SET_USER,user})
+        }
+        userProfile();
+     
+    },[token,dispatch])
   return (
     <Container>
         <BrowserRouter>
