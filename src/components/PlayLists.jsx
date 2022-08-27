@@ -27,54 +27,6 @@ function PlayLists() {
   return (
     <Container>
         <ul>
-        {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
-          {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
-          {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
-          {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
-          {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
-          {
-            playlists.map(({name,id})=>{
-                return(
-                    <li>{name}</li>
-                )
-            })
-            
-        }
           {
             playlists.map(({name,id})=>{
                 return(
