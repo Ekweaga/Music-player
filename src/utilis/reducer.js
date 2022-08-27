@@ -1,7 +1,8 @@
 import { reducercases } from "./constants"
 
 export const initialState = {
-    token:null
+    token:null,
+    playlists:[]
 }
 
 
@@ -12,6 +13,13 @@ export const reducer = (state,action) =>{
                 ...state,
                 token:action.token
             }
+        }
+        case reducercases.SET_PLAYLISTS:{
+            return{
+                ...state,
+                playlists:action.playlists
+            }
+           
         }
         default:
             return state
