@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from 'react'
+import React ,{useEffect,useState,useRef}from 'react'
 import styled from "styled-components"
 import Footer from './Footer'
 import Navbar from './Navbar'
@@ -13,6 +13,15 @@ import axios from 'axios'
 function Spotify() {
     const [{token},dispatch] = useStateProvider()
     const [userprofile,setuserprofile] = useState({})
+    const bodyRef = useRef();
+    const [navBackground,setNavBackground] = useState(false);
+    const [headerBackground,setheaderBackground] = useState(false)
+
+    const bodyScrolled =()=>{
+      bodyRef.current.scrollTop >= 30  ? setNavBackground(true) : setNavBackground(false);
+      bodyRef.current.scrollTop >= 268  ? setheaderBackground(true) : setheaderBackground(false);
+    }
+
     useEffect(()=>{
         const userProfile = async ()=>{
           const {data} = axios.get("https://api.spotify.com/v1/me",{
@@ -43,16 +52,16 @@ function Spotify() {
         <BrowserRouter>
         <div className="spotify_body">
             <Sidebar/>
-            <div className="body">
-                <Navbar/>
+            <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
+                <Navbar navBackground={navBackground}/>
                
                 <div className="body_contents">
                     <Switch>
                         <Route path ="/" exact>
-                        <Home/>
+                        <Home headerBackground={headerBackground}/>
                         </Route>
                         <Route path ="/body/:id" exact>
-                        <Body/>
+                        <Body headerBackground={headerBackground}/>
                         </Route>
                     </Switch>
 
