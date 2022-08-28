@@ -42,7 +42,7 @@ const getInitialPlayLists = async ()=>{
 getInitialPlayLists();
   },[token,dispatch,PlayLists])
   return (
-    <Container>
+    <Container headerBackground={headerBackground}>
       {
           (
             <>
@@ -145,6 +145,8 @@ const Container = styled.div`
     top:15vh;
     padding:1rem 3rem;
     transitions:0.3s ease all;
+    background:${({headerBackground})=>headerBackground ? "rgba(0,0,0,0.7)":"none"};
+
   }
   .tracks{
     margin:0 2rem;
