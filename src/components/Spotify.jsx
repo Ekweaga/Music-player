@@ -12,7 +12,7 @@ import axios from 'axios'
 
 function Spotify() {
     const [{token},dispatch] = useStateProvider()
-    const [userprofile,setuserprofile] = useState({})
+    const [dataItem,setdataItem] = useState({})
     const bodyRef = useRef();
     const [navBackground,setNavBackground] = useState(false);
     const [headerBackground,setheaderBackground] = useState(false)
@@ -31,6 +31,7 @@ function Spotify() {
           }
          
           },
+          setdataItem(data)
          );
          
          
@@ -38,8 +39,8 @@ function Spotify() {
          
     
           const user = {
-            name:"bbb",
-            id:"1"
+            name:dataItem.display_name,
+            id:dataItem.id
           }
          
           dispatch({type:reducercases.SET_USER,user})

@@ -6,7 +6,7 @@ import {useStateProvider} from '../utilis/StateProvider'
 import axios from 'axios'
 
 
-function Body() {
+function Body({headerBackground}) {
   const {id}= useParams();
   const [{token},dispatch] = useStateProvider();
   const [playItems,setplayItems] = useState({})
@@ -43,44 +43,147 @@ getInitialPlayLists();
   },[id,token,dispatch])
 
   return (
-    <Container>
-    {
-        (
-          <>
-          <div className="playlist">
-            <div className="image">
-              <img src={playItems?.images} alt="img"/>
-            </div>
-            <div className="details">
-              <span className="type">PLAYLIST</span>
-              <h1 className="title">{playItems?.name}</h1>
-              <p className="description">{playItems.description}</p>
-            </div>
-          </div>
-          <div>
-            <div className="header_row">
-              <div className="col">
-                <span>#</span>
+    <Container headerBackground={headerBackground}>
+      {
+          (
+            <>
+            <div className="playlist">
+              <div className="image">
+                <img src={playItems?.images} alt="img"/>
               </div>
-              <div className="col">
-                <span>#</span>
-              </div>
-              <div className="col">
-                <span>#</span>
-              </div>
-              <div className="col">
-                <span>#</span>
+              <div className="details">
+                <span className="type">PLAYLIST</span>
+                <h1 className="title">{playItems?.name}</h1>
+                <p className="description">{playItems.description}</p>
               </div>
             </div>
-          </div>
-          </>
-        )
-    }
+            <div>
+              <div className="header_row">
+                <div className="col">
+                  <span>#</span>
+                </div>
+                <div className="col">
+                  <span>TITLE</span>
+                </div>
+                <div className="col">
+                  <span>ALBUM</span>
+                </div>
+                <div className="col">
+                  <span><AiFillClockCircle/></span>
+                </div>
+              </div>
+            </div>
+            <div className="tracks">
+              {
+                playItems.tracks?.map(({id,name,artists,image,duration,album,context,trackNO},index)=>{
+                      return (
+                      <>  <div className="row" key={id}>
+                        <div className="col">
+                        <span>{index + 1}</span>
+                        </div>
+                         
+                          <div className="cols detail">
+                            <div className="image"> <img src={image} alt="img"/></div>
+                         
+                          <div className="info" style={{display:'flex',flexDirection:'column'}}>
+                            <span>{name}</span>
+                          <span>{artists}</span>
+                          </div>
 
-  </Container>
+                          <div className="col"><span>{album}</span></div>
+                            <div className="col"><span>{duration}</span></div>
+                        </div>
+                        
+                           
+
+
+                        </div>
+                       
+
+                        </>
+                      )
+                })
+              }
+              
+            </div>
+            </>
+          )
+      }
+
+    </Container>
   )
 }
 const Container = styled.div`
+.playlist{
+  margin:0 2rem;
+  display:flex;
+  align-items:center;
+  gap:2rem;
+  .image{
+    img{
+      height:15rem;
+      box-shadow:rgba(0,0,0,0.25) 0px 25px 50px -12px;
+    }
+  }
+  .details{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    color:white-smoke;
+    .title{
+      color:white;
+      font-size:4rem;
+    }
+  }
+}
+
+  .header_row{
+    display:grid;
+    grid-template-columns:0.3fr 3fr 2fr 0.1fr;
+    margin:1rem 0 0 0;
+    position:sticky;
+    top:15vh;
+    padding:1rem 3rem;
+    transitions:0.3s ease all;
+    background:${({headerBackground})=>headerBackground ? "rgba(0,0,0,0.7)":"none"};
+
+  }
+  .tracks{
+    margin:0 2rem;
+    display:flex;
+    flex-direction:column;
+    margin-bottom:5rem;
+    .row{
+      padding:0.5rem 1rem;
+      display:grid;
+      grid-template-columns:0.3fr 3.1fr 1.8fr 0.1fr;
+      cursor:pointer;
+      &:hover{
+        background:rgba(0,0,0,0.7);
+      }
+      .col{
+        display:flex;
+        align-items:center;
+      }
+      .cols{
+        display:flex;
+        align-items:center;
+
+        color:white-smoke;
+        img{
+          height:40px;
+        }
+      }
+      .detail{
+        display:flex;
+        gap:1rem;
+      
+      }
+
+    }
+  }
+ 
+
 `
 
 export default Body
