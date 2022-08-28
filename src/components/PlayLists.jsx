@@ -3,7 +3,7 @@ import axios from 'axios'
 import {useStateProvider} from '../utilis/StateProvider'
 import { reducercases } from '../utilis/constants'
 import styled from "styled-components"
-
+import {Link} from "react-router-dom"
 function PlayLists() {
     const [{token,playlists},dispatch] = useStateProvider()
 
@@ -16,7 +16,7 @@ function PlayLists() {
                 }
             })
           const {items} = response.data
-          const playlists = items.map(({name,id})=>{
+          const playlists = items?.map(({name,id})=>{
             return {name, id}
           });
           console.log(playlists)
@@ -28,9 +28,9 @@ function PlayLists() {
     <Container>
         <ul>
           {
-            playlists.map(({name,id})=>{
+            playlists?.map(({name,id})=>{
                 return(
-                    <li>{name}</li>
+                    <li key={id}><Link to={`/body/${id}`} style={{color:"white",textDecoration:'none'}}>{name}</Link></li>
                 )
             })
             

@@ -22,7 +22,7 @@ function Spotify() {
           }
          
           },
-          console.log({data}));
+         );
          
          
           
@@ -49,10 +49,10 @@ function Spotify() {
                 <div className="body_contents">
                     <Switch>
                         <Route path ="/" exact>
-                            <Home/>
+                        <Home/>
                         </Route>
-                        <Route path ="/body" exact>
-                            <Body/>
+                        <Route path ="/body/:id" exact>
+                        <Body/>
                         </Route>
                     </Switch>
 
@@ -80,7 +80,7 @@ grid-template-rows:85vh 15vh;
     grid-template-columns:15vw 85vw;
     height:100%;
     width:100%;
-    background:linear-gradient(transparent,rgba(0,0,0,1));
+    background:linear-gradient(transparent,rgba(0,0,0,3));
     background-color:crimson;
 
 
