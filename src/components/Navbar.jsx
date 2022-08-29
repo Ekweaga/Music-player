@@ -5,7 +5,7 @@ import {FaSearch} from "react-icons/fa"
 import {CgProfile} from "react-icons/cg"
 
 
-function Navbar({navBackground}) {
+function Navbar({navBackground,userData}) {
   
   const [{userInfo}] = useStateProvider()
 
@@ -17,7 +17,7 @@ function Navbar({navBackground}) {
       </div>
       <div className="avatar">
         <CgProfile style={{fontSize:'30px'}}/>
-        <span>{userInfo?.name}</span>
+        <span>{userData.name}</span>
       </div>
       
     </Container>

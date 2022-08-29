@@ -9,10 +9,12 @@ import Body from './Body'
 import {useStateProvider} from '../utilis/StateProvider'
 import { reducercases } from '../utilis/constants'
 import axios from 'axios'
+import userEvent from '@testing-library/user-event'
 
 function Spotify() {
     const [{token},dispatch] = useStateProvider()
     const [dataItem,setdataItem] = useState({})
+    const [userData,setuserData] = useState({})
     const bodyRef = useRef();
     const [navBackground,setNavBackground] = useState(false);
     const [headerBackground,setheaderBackground] = useState(false)
@@ -28,12 +30,12 @@ function Spotify() {
             headers:{
               Authorization:"Bearer " + token,
               "Content-type":"application/json"
-          }
+          },
          
           },
-          setdataItem(data)
-         );
          
+         );
+         setdataItem(data)
          
           
          
@@ -42,7 +44,8 @@ function Spotify() {
             name:dataItem.display_name,
             id:dataItem.id
           }
-         
+         setuserData(user)
+         console.log(data)
           dispatch({type:reducercases.SET_USER,user})
         }
         userProfile();
@@ -54,7 +57,7 @@ function Spotify() {
         <div className="spotify_body">
             <Sidebar/>
             <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
-                <Navbar navBackground={navBackground}/>
+                <Navbar navBackground={navBackground} userData={userData}/>
                
                 <div className="body_contents">
                     <Switch>

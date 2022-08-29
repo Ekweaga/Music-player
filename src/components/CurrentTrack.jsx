@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import styled from "styled-components"
 import axios from 'axios'
 import {useStateProvider} from '../utilis/StateProvider'
@@ -6,6 +6,8 @@ import { reducercases } from '../utilis/constants'
 
 function CurrentTrack() {
     const [{token,currentlyPlaying},dispatch] = useStateProvider()
+    const [currentTrack,setcurrentTrack] = useState({})
+    const [noCurrentTrack,setnoCurrentTrack]= useState('')
 
     useEffect(()=>{
         const getcurrentTrackData = async ()=>{
@@ -24,18 +26,44 @@ function CurrentTrack() {
               id:item.id,
               image:item.album.images[2].url
             }
+            setcurrentTrack(currentlyPlaying)
             dispatch({type:reducercases.SET_CURRENTPLAYING, currentlyPlaying})
+          }
+
+          else{
+                setnoCurrentTrack("No track song is selected")
           }
          
         }
         getcurrentTrackData();
     },[token,dispatch])
   return (
-    <Container>CurrentTrack</Container>
+    <Container>
+      <div className="track">
+        <div className="track_image">
+          <img src={currentTrack?.image} alt="images"/>
+        </div>
+        <div className="track_info">
+          <span>{currentTrack.name}</span>
+          <span>{currentTrack.artist}</span>
+        </div>
+
+      </div>
+    </Container>
   )
 }
 
 const Container = styled.div`
+.track{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  justify-content:center;
+  .track_info{
+    display:flex;
+    flex-direction:column;
+  }
+}
 `
 
 export default CurrentTrack
