@@ -34,8 +34,7 @@ const getInitialPlayLists = async ()=>{
       trackNo:track.track_number
     }))
   }
-  console.log(selectedPlayList)
-  console.log(response.data)
+  
   setplayItems(selectedPlayList)
   dispatch({type:reducercases.SET_SELECTEDPLAYLISTS, selectedPlayList})
 }

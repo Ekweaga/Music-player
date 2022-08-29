@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from "styled-components"
+import CurrentTrack from './CurrentTrack'
 
 function Footer() {
   return (
-    <Container>Footer</Container>
+    <Container>
+      <CurrentTrack/>
+    </Container>
   )
 }
 const Container = styled.div`

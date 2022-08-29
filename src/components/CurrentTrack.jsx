@@ -5,7 +5,7 @@ import {useStateProvider} from '../utilis/StateProvider'
 import { reducercases } from '../utilis/constants'
 
 function CurrentTrack() {
-    const [{token,playlists},dispatch] = useStateProvider()
+    const [{token,currentlyPlaying},dispatch] = useStateProvider()
 
     useEffect(()=>{
         const getcurrentTrackData = async ()=>{
@@ -15,12 +15,18 @@ function CurrentTrack() {
                     "Content-type":"application/json"
                 }
             })
-          const {items} = response.data
-          const playlists = items?.map(({name,id})=>{
-            return {name, id}
-          });
-          console.log(playlists)
-           dispatch({type:reducercases.SET_PLAYLISTS, playlists})
+          const {item} = response.data
+          console.log(response)
+          if(response.data !== ""){
+            const currentlyPlaying = {
+              name:item.name,
+              artist:item.artists.map((artist)=>artist.name),
+              id:item.id,
+              image:item.album.images[2].url
+            }
+            dispatch({type:reducercases.SET_CURRENTPLAYING, currentlyPlaying})
+          }
+         
         }
         getcurrentTrackData();
     },[token,dispatch])

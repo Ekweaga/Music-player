@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import {useStateProvider} from '../utilis/StateProvider'
 import { reducercases } from '../utilis/constants'
@@ -6,6 +6,7 @@ import styled from "styled-components"
 import {Link} from "react-router-dom"
 function PlayLists() {
     const [{token,playlists},dispatch] = useStateProvider()
+    const [playItemsLists,setplayItemsLists] = useState([])
 
     useEffect(()=>{
         const getplaylistData = async ()=>{
@@ -19,7 +20,7 @@ function PlayLists() {
           const playlists = items?.map(({name,id})=>{
             return {name, id}
           });
-          console.log(playlists)
+         setplayItemsLists(playlists)
            dispatch({type:reducercases.SET_PLAYLISTS, playlists})
         }
             getplaylistData();
@@ -28,7 +29,7 @@ function PlayLists() {
     <Container>
         <ul>
           {
-            playlists?.map(({name,id})=>{
+            playItemsLists?.map(({name,id})=>{
                 return(
                     <li key={id}><Link to={`/body/${id}`} style={{color:"white",textDecoration:'none'}}>{name}</Link></li>
                 )
