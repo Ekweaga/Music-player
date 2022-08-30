@@ -11,12 +11,37 @@ function PlayerControls() {
     const [{token},dispatch] = useStateProvider()
 
     const changeTrack = async (type) =>{
-         await axios.post(`https://api.spotify.com/v1/me/player/${type}`,{
+         await axios.post(`https://api.spotify.com/v1/me/player/${type}`,{},{
             headers:{
                 Authorization:"Bearer " + token,
                 "Content-type":"application/json"
             }
-        })
+        });
+        const getcurrentTrackData = async ()=>{
+            const response = await axios.get(' https://api.spotify.com/v1/me/player/currently-playing',{
+                headers:{
+                    Authorization:"Bearer " + token,
+                    "Content-type":"application/json"
+                }
+            })
+          const {item} = response.data
+          console.log(response)
+          if(response.data !== ""){
+            const currentlyPlaying = {
+              name:item.name,
+              artist:item.artists.map((artist)=>artist.name),
+              id:item.id,
+              image:item.album.images[2].url
+            }
+           
+          }
+
+          else{
+               
+          }
+         
+        }
+
     }
   return (
     <Container>
@@ -24,13 +49,13 @@ function PlayerControls() {
             <BsShuffle/>
         </div>
         <div className="previous">
-            <CgPlayTrackPrev/>
+            <CgPlayTrackPrev onClick={()=>changeTrack("previous")}/>
         </div>
         <div className="state">
             {playerState ? <BsFillPauseCircleFill/> : <BsFillPlayCircleFill/>}
         </div>
         <div className="next">
-            <CgPlayTrackNext/>
+            <CgPlayTrackNext onClick={()=>changeTrack("next")}/>
         </div>
         <div className="repeat">
             <FiRepeat/>
